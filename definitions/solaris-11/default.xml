@@ -25,6 +25,15 @@
 <!DOCTYPE auto_install SYSTEM "file:///usr/share/install/ai.dtd.1">
 <auto_install>
   <ai_instance name="default">
+    <target>
+      <logical>
+        <zpool name="rpool" is_root="true">
+          <filesystem name="export" mountpoint="/export"/>
+          <filesystem name="export/home"/>
+          <be name="solaris"/>
+        </zpool>
+      </logical>
+    </target>
     <software>
       <source>
         <publisher name="solaris">
@@ -41,13 +50,6 @@
       -->
       <software_data action="install">
         <name>pkg:/server_install</name>
-        <!--
-	    The following packages are required by iSCSI and included
-	    by default to make it easier for users to enable iSCSI if
-	    desired. They can be deleted from this list if iSCSI isn't 
-	    used. See iscsiadm(1m) man page for more information. 
-	    support for iSCSI. 
-	-->
       </software_data>
       <!--
 	    babel_install and slim_install are group packages used to
@@ -60,13 +62,5 @@
       </software_data>
    	
     </software>
-   <!--
-	Add missing driver packages to a booted install image so an
-	installation can complete.  Add packages to target as well.
-	<search_all> searches and installs from configured repo.
-    -->
-    <add_drivers>
-      <search_all/>
-    </add_drivers>
   </ai_instance>
 </auto_install>
