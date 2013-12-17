@@ -37,14 +37,17 @@ session = SOLARIS_SESSION.merge(
       'sleep 5; curl http://%IP%:%PORT%/default.xml -o default.xml;',
       'curl http://%IP%:%PORT%/profile.xml -o profile.xml;',
       'cp default.xml /system/volatile/ai.xml;',
-      'mkdir /system/volatile/profiles;',
-      'cp profile.xml /system/volatile/profiles/profile.xml;',
+      'mkdir /system/volatile/profile;',
+      'cp profile.xml /system/volatile/profile/profile.xml;',
 
       # Start the installer
       'svcadm enable svc:/application/auto-installer:default;',
+      '<Enter>',
 
       # Wait for the installer to launch and display the logfile
-      'sleep 3; tail -f /var/svc/log/application-auto-installer\:default.log<Enter>'
+      '<Wait>'*10,
+      '<Enter>',
+      'tail -f /var/svc/log/application-auto-installer\:default.log<Enter>'
     ],
   :os_type_id => "Solaris11_64",
 )
